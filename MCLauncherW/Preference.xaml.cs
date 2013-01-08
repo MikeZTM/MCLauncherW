@@ -32,14 +32,16 @@ namespace MCLauncherW
             InitializeComponent();
             refreshSettings();
             javaw.Text = javaVM;
+            mc_path.Text = Properties.Settings.Default.mcPath;
             if (Environment.Is64BitOperatingSystem) //check x64 os
             {
                 x64Check.IsEnabled = true;
+                if (Properties.Settings.Default.x64mode)
+                {
+                    x64Check.IsChecked = true;
+                }
             }
-            else
-            {
-
-            }
+            memSlider.Value = Properties.Settings.Default.memory;
         }
 
         private void closed(object sender, EventArgs e)
@@ -119,6 +121,8 @@ namespace MCLauncherW
             if (memAmountTextField != null)
             {
                 memAmountTextField.Content = memSlider.Value;
+                Properties.Settings.Default.memory = (long)memSlider.Value;
+                Properties.Settings.Default.Save();
             }
         }
 
