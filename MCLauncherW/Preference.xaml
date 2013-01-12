@@ -17,6 +17,8 @@
         <Label Content="Password :" HorizontalAlignment="Left" Margin="7,139,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="pswdBox" Margin="80,142,90,0" VerticalAlignment="Top" Height="23"/>
         <Label Content="Drag update zip file here" Margin="10,198,10,10" BorderThickness="2" BorderBrush="#FF9E9E9E" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF8F8F8F"/>
+        <CheckBox x:Name="PassCheck" Content="Enabled" HorizontalAlignment="Left" Margin="729,145,0,0" VerticalAlignment="Top" ToolTip="Select to use Majong account" Checked="PassCheck_Unchecked" Unchecked="PassCheck_Unchecked"/>
+        <CheckBox x:Name="HighCheck" Content="Ultra High Effects" HorizontalAlignment="Left" Margin="80,104,0,0" VerticalAlignment="Top" ToolTip="Select to enable splendid effects" Checked="HighCheck_Checked" Unchecked="HighCheck_Unchecked"/>
 
     </Grid>
 </Window>

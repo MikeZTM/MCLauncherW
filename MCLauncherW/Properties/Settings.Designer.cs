@@ -86,12 +86,12 @@ namespace MCLauncherW.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool pswdEnabled {
+        public bool HighEnabled {
             get {
-                return ((bool)(this["pswdEnabled"]));
+                return ((bool)(this["HighEnabled"]));
             }
             set {
-                this["pswdEnabled"] = value;
+                this["HighEnabled"] = value;
             }
         }
         
@@ -104,6 +104,18 @@ namespace MCLauncherW.Properties {
             }
             set {
                 this["mcPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool passwordEnabled {
+            get {
+                return ((bool)(this["passwordEnabled"]));
+            }
+            set {
+                this["passwordEnabled"] = value;
             }
         }
     }

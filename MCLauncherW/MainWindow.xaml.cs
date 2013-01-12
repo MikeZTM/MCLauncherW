@@ -27,7 +27,6 @@ namespace MCLauncherW
         private String mcPath;
         private bool x64mode;
         private long memory;
-        private bool pswdEnabled;
 
         public MainWindow()
         {
@@ -41,6 +40,7 @@ namespace MCLauncherW
             Properties.Settings.Default.playerName = playerNameTextField.Text;
             Properties.Settings.Default.Save();
 
+            refreshSettings();
             Process p = new Process();
             // Redirect the output stream of the child process.
             p.StartInfo.UseShellExecute = true;
@@ -48,27 +48,46 @@ namespace MCLauncherW
             String memString = "-Xms" + memory + "m";
             p.StartInfo.Arguments = memString;
             String path = mcPath.Substring(0, mcPath.Length - 13);
-            String cp = " -cp \"" + path + "minecraft.jar;" + path + "lwjgl.jar;" + path + "lwjgl_util.jar;" + path + "jinput.jar\"";
+            String cp = "";
+            if (Properties.Settings.Default.HighEnabled)
+            {
+                cp = " -cp \"" + path + "minecraft_high.jar;" + path + "lwjgl.jar;" + path + "lwjgl_util.jar;" + path + "jinput.jar\"";
+            }
+            else
+            {
+                cp = " -cp \"" + path + "minecraft.jar;" + path + "lwjgl.jar;" + path + "lwjgl_util.jar;" + path + "jinput.jar\"";
+            }
             p.StartInfo.Arguments += cp;
             String dcp = " -Djava.library.path=\"" + path + "natives\"";
             p.StartInfo.Arguments += dcp;
-            p.StartInfo.Arguments += " net.minecraft.client.Minecraft";
-            p.StartInfo.Arguments += " " + playerNameTextField.Text;
+            p.StartInfo.Arguments += " net.minecraft.client.Minecraft ";
 
             try
             {
+                if (Properties.Settings.Default.passwordEnabled)
+                {
+                    String loginSession = Login.login(playerNameTextField.Text, playerPswd);
+                    if (loginSession != "")
+                    {
+                        p.StartInfo.Arguments += loginSession;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                else
+                {
+                    p.StartInfo.Arguments += "\"" + playerNameTextField.Text + "\"";
+                }
                 p.Start();
+
+                Application.Current.Shutdown();
             }
             catch (Exception)
             {
 
             }
-            // Do not wait for the child process to exit before
-            // reading to the end of its redirected stream.
-            // p.WaitForExit();
-            // Read the output stream first and then wait.
-            //string output = p.StandardOutput.ReadToEnd();
-            Application.Current.Shutdown();
         }
 
         private void preference_Click(object sender, RoutedEventArgs e)
@@ -86,7 +105,6 @@ namespace MCLauncherW
             playerPswd = Properties.Settings.Default.playerPswd;
             x64mode = Properties.Settings.Default.x64mode;
             memory = Properties.Settings.Default.memory;
-            pswdEnabled = Properties.Settings.Default.pswdEnabled;
             mcPath = Properties.Settings.Default.mcPath;
 
         }

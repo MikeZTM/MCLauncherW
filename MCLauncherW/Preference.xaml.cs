@@ -33,6 +33,12 @@ namespace MCLauncherW
             refreshSettings();
             javaw.Text = javaVM;
             mc_path.Text = Properties.Settings.Default.mcPath;
+            HighCheck.IsChecked = Properties.Settings.Default.HighEnabled;
+            if (Properties.Settings.Default.passwordEnabled)
+            {
+                pswdBox.Password = Properties.Settings.Default.playerPswd;
+                PassCheck.IsChecked = true;
+            }
             if (Environment.Is64BitOperatingSystem) //check x64 os
             {
                 x64Check.IsEnabled = true;
@@ -83,7 +89,6 @@ namespace MCLauncherW
             playerPswd = Properties.Settings.Default.playerPswd;
             x64mode = Properties.Settings.Default.x64mode;
             memory = Properties.Settings.Default.memory;
-            pswdEnabled = Properties.Settings.Default.pswdEnabled;
         }
 
         private void browseMC_Click(object sender, RoutedEventArgs e)
@@ -129,6 +134,35 @@ namespace MCLauncherW
         private void mcpath_TextChanged(object sender, TextChangedEventArgs e)
         {
             Properties.Settings.Default.mcPath = mc_path.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void PassCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (PassCheck.IsChecked == true)
+            {
+                Properties.Settings.Default.playerPswd = pswdBox.Password;
+                Properties.Settings.Default.passwordEnabled = true;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                pswdBox.Password = "";
+                Properties.Settings.Default.playerPswd = "";
+                Properties.Settings.Default.passwordEnabled = false;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void HighCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.HighEnabled = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void HighCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.HighEnabled = false;
             Properties.Settings.Default.Save();
         }
     }

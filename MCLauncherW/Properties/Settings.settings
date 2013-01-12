@@ -17,11 +17,14 @@
     <Setting Name="memory" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">1024</Value>
     </Setting>
-    <Setting Name="pswdEnabled" Type="System.Boolean" Scope="User">
+    <Setting Name="HighEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="mcPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="passwordEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
