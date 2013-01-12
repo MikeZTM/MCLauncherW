@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!-- String resource that can be localized -->
+    <system:String x:Key="start">Start</system:String>
+    <system:String x:Key="preferences">Preferences</system:String>
+    <system:String x:Key="javaPath">Java Path :</system:String>
+    <system:String x:Key="minecraft">Minecraft :</system:String>
+    <system:String x:Key="memory">Memory :</system:String>
+    <system:String x:Key="browse">Browse</system:String>
+    <system:String x:Key="useHigh">Ultra High Effects</system:String>
+    <system:String x:Key="pswd">Password :</system:String>
+    <system:String x:Key="enabled">Enabled</system:String>
+    <system:String x:Key="dragUpdate">Drag update zip file here</system:String>
+
+</ResourceDictionary>

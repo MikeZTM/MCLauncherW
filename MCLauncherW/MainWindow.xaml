@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MCLauncherW" Height="125" Width="267" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="preference" Content="Preference" HorizontalAlignment="Left" Margin="10,0,0,10" Width="110" Height="33" VerticalAlignment="Bottom" Click="preference_Click"/>
+        <Button x:Name="preference" Content="{DynamicResource preferences}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="110" Height="33" VerticalAlignment="Bottom" Click="preference_Click"/>
         <TextBox x:Name="playerNameTextField" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" ToolTip="Player name"/>
-        <Button x:Name="start" Content="Start" Margin="141,0,10,10" Height="33" VerticalAlignment="Bottom" Click="start_Click"/>
+        <Button x:Name="start" Content="{DynamicResource start}" Margin="141,0,10,10" Height="33" VerticalAlignment="Bottom" Click="start_Click"/>
 
     </Grid>
 </Window>

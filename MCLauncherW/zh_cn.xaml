@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!-- String resource that can be localized -->
+    <system:String x:Key="start">启动</system:String>
+    <system:String x:Key="preferences">偏好设定</system:String>
+    <system:String x:Key="javaPath">Java路径 :</system:String>
+    <system:String x:Key="minecraft">Minecraft :</system:String>
+    <system:String x:Key="memory">内存 :</system:String>
+    <system:String x:Key="browse">浏览</system:String>
+    <system:String x:Key="useHigh">高特效</system:String>
+    <system:String x:Key="pswd">密码 :</system:String>
+    <system:String x:Key="enabled">启用</system:String>
+    <system:String x:Key="dragUpdate">拖放升级zip文件到这里</system:String>
+
+</ResourceDictionary>

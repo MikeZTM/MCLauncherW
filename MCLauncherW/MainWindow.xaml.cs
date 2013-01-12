@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Threading;
 
 namespace MCLauncherW
 {
@@ -33,7 +34,29 @@ namespace MCLauncherW
             InitializeComponent();
             refreshSettings();
             playerNameTextField.Text = playerName;
+            SetLanguageDictionary();
         }
+
+        private void SetLanguageDictionary()
+        {
+            ResourceDictionary dict = new ResourceDictionary();
+            switch (Thread.CurrentThread.CurrentCulture.ToString())
+            {
+                case "en-US":
+                    dict.Source = new Uri("en_us.xaml",
+                                  UriKind.Relative);
+                    break;
+                case "zh-CN":
+                    dict.Source = new Uri("zh_cn.xaml",
+                                       UriKind.Relative);
+                    break;
+                default:
+                    dict.Source = new Uri("en_us.xaml",
+                                      UriKind.Relative);
+                    break;
+            }
+            this.Resources.MergedDictionaries.Add(dict);
+        } 
 
         private void start_Click(object sender, RoutedEventArgs e)
         {

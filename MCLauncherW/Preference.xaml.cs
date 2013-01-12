@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace MCLauncherW
 {
@@ -30,6 +31,7 @@ namespace MCLauncherW
         public Preference()
         {
             InitializeComponent();
+            SetLanguageDictionary();
             refreshSettings();
             javaw.Text = javaVM;
             mc_path.Text = Properties.Settings.Default.mcPath;
@@ -48,6 +50,27 @@ namespace MCLauncherW
                 }
             }
             memSlider.Value = Properties.Settings.Default.memory;
+        }
+
+        private void SetLanguageDictionary()
+        {
+            ResourceDictionary dict = new ResourceDictionary();
+            switch (Thread.CurrentThread.CurrentCulture.ToString())
+            {
+                case "en-US":
+                    dict.Source = new Uri("en_us.xaml",
+                                  UriKind.Relative);
+                    break;
+                case "zh-CN":
+                    dict.Source = new Uri("zh_cn.xaml",
+                                       UriKind.Relative);
+                    break;
+                default:
+                    dict.Source = new Uri("en_us.xaml",
+                                      UriKind.Relative);
+                    break;
+            }
+            this.Resources.MergedDictionaries.Add(dict);
         }
 
         private void closed(object sender, EventArgs e)
