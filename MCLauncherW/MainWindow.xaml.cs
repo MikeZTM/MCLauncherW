@@ -66,11 +66,13 @@ namespace MCLauncherW
             refreshSettings();
             Process p = new Process();
             // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.UseShellExecute = false;
             p.StartInfo.FileName = javaVM;
             String memString = "-Xms" + memory + "m";
             p.StartInfo.Arguments = memString;
             String path = mcPath.Substring(0, mcPath.Length - 13);
+            p.StartInfo.EnvironmentVariables.Remove("APPDATA");
+            p.StartInfo.EnvironmentVariables.Add("APPDATA", mcPath.Substring(0, mcPath.Length - 29));
             String cp = "";
             if (Properties.Settings.Default.HighEnabled)
             {
