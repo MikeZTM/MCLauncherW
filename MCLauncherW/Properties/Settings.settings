@@ -21,7 +21,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="mcPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">.\.minecraft\bin\minecraft.jar</Value>
     </Setting>
     <Setting Name="passwordEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

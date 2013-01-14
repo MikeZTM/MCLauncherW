@@ -188,5 +188,16 @@ namespace MCLauncherW
             Properties.Settings.Default.HighEnabled = false;
             Properties.Settings.Default.Save();
         }
+
+        private void dragUpdateLabel_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
+                String path = Properties.Settings.Default.mcPath;
+                path=path.Substring(0, path.Length - 18);
+                Update.updateFile(filePath[0], path);
+            }
+        }
     }
 }

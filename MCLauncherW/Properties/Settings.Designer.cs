@@ -97,7 +97,7 @@ namespace MCLauncherW.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\.minecraft\\bin\\minecraft.jar")]
         public string mcPath {
             get {
                 return ((string)(this["mcPath"]));

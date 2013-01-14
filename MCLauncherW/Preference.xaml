@@ -16,7 +16,7 @@
         <Label Content="MB" Margin="0,72,90,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="29"/>
         <Label Content="{DynamicResource pswd}" HorizontalAlignment="Left" Margin="7,139,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="pswdBox" Margin="80,142,90,0" VerticalAlignment="Top" Height="23"/>
-        <Label Content="Drag update zip file here" Margin="10,198,10,10" BorderThickness="2" BorderBrush="#FF9E9E9E" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF8F8F8F"/>
+        <Label x:Name="dragUpdateLabel" Content="{DynamicResource dragUpdate}" Margin="10,198,10,10" BorderThickness="2" BorderBrush="#FF9E9E9E" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF8F8F8F" Drop="dragUpdateLabel_Drop" AllowDrop="True"/>
         <CheckBox x:Name="PassCheck" Content="{DynamicResource enabled}" HorizontalAlignment="Left" Margin="729,145,0,0" VerticalAlignment="Top" ToolTip="Select to use Majong account" Checked="PassCheck_Unchecked" Unchecked="PassCheck_Unchecked"/>
         <CheckBox x:Name="HighCheck" Content="{DynamicResource useHigh}" HorizontalAlignment="Left" Margin="80,104,0,0" VerticalAlignment="Top" ToolTip="Select to enable splendid effects" Checked="HighCheck_Checked" Unchecked="HighCheck_Unchecked"/>
 
