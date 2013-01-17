@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MCLauncherW.Preference"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Preference" Height="525.688" Width="816.055" ResizeMode="NoResize" Closed="closed" WindowStartupLocation="CenterScreen">
+        Title="Preference" Height="525.688" Width="816.055" ResizeMode="NoResize" Closed="closed" WindowStartupLocation="CenterScreen" Icon="with256.ico">
     <Grid>
         <TextBox x:Name="javaw" Height="23" Margin="80,14,90,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="javaw_TextChanged" ToolTip="Path to javaw.exe"/>
         <Label Content="{DynamicResource javaPath}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>

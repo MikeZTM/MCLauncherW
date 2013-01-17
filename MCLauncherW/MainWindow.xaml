@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MCLauncherW.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MCLauncherW" Height="125" Width="267" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MCLauncherW" Height="125" Width="267" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="with256.ico">
     <Grid>
         <Button x:Name="preference" Content="{DynamicResource preferences}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="110" Height="33" VerticalAlignment="Bottom" Click="preference_Click"/>
         <TextBox x:Name="playerNameTextField" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" ToolTip="Player name"/>
