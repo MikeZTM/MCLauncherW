@@ -12,5 +12,8 @@
     <system:String x:Key="pswd">密码 :</system:String>
     <system:String x:Key="enabled">启用</system:String>
     <system:String x:Key="dragUpdate">拖放升级zip文件到这里</system:String>
+    <system:String x:Key="notFundMessageLine1">没有找到Java路径！</system:String>
+    <system:String x:Key="notFundMessageLine2">请手动设置！</system:String>
+    <system:String x:Key="notFundMessageTitle">错误</system:String>
 
 </ResourceDictionary>

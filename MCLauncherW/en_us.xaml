@@ -12,5 +12,9 @@
     <system:String x:Key="pswd">Password :</system:String>
     <system:String x:Key="enabled">Enabled</system:String>
     <system:String x:Key="dragUpdate">Drag update zip file here</system:String>
+    <system:String x:Key="notFundMessageLine1">Can not auto detect Java Runtime Environment!</system:String>
+    <system:String x:Key="notFundMessageLine2">Please set it in Preferences!</system:String>
+    <system:String x:Key="notFundMessageTitle">Error</system:String>
+
 
 </ResourceDictionary>
