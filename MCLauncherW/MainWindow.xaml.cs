@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Diagnostics;
 using System.Threading;
+using Microsoft.Win32;
+using System.IO;
 
 namespace MCLauncherW
 {
@@ -26,6 +28,20 @@ namespace MCLauncherW
             refreshSettings();
             SetLanguageDictionary();
             playerNameTextField.Text = playerName;
+            if (playerName == "")
+            {
+                javaVM = javaAutoDetect();
+                if (javaVM == string.Empty)
+                {
+                    MessageBox.Show("没有找到Java路径！请手动设置！", "错误！", MessageBoxButton.OK, MessageBoxImage.Error);
+                    javaVM = Properties.Settings.Default.javaVM;
+                }
+                else
+                {
+                    Properties.Settings.Default.javaVM = javaVM;
+                    Properties.Settings.Default.Save();
+                }
+            }
         }
 
         private void SetLanguageDictionary()
@@ -112,6 +128,74 @@ namespace MCLauncherW
             Preference prefer = new Preference();
             prefer.setParent(this);
             prefer.Show();
+        }
+
+        private string javaAutoDetect()
+        {
+            RegistryKey pregkey;
+            string findJavaPath = string.Empty;
+
+            pregkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment", false);
+            if (pregkey == null)
+            {
+                MessageBox.Show("未安装Java！");
+                return findJavaPath;
+            }
+            else
+            {
+                string javaVersion = pregkey.GetValue("CurrentVersion", "0").ToString();
+                //textBox1.AppendText("Java版本：" + javaVersion + "\r\n");
+                pregkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment\\" + javaVersion, false);
+                if (pregkey == null)
+                {
+                    MessageBox.Show("未安装Java！");
+                    return findJavaPath;
+                }
+                else
+                {
+                    string javaPath = pregkey.GetValue("JavaHome", "0").ToString();
+                    //textBox1.AppendText(javaPath + "\r\n");
+                    string javaw = javaPath + "\\" + "bin\\javaw.exe";
+                    if (javaw.Contains(" (x86)"))
+                    {
+                        //textBox1.AppendText("32位Java路径：" + javaw + "\r\n");
+                        string java64w = javaw.Replace(" (x86)", "");
+                        //textBox1.AppendText("64位Java路径" + java64w + "\r\n");
+                        if (File.Exists(java64w))
+                        {
+                            findJavaPath = java64w;
+                            //textBox1.AppendText("系统中存在64位Java！将优先选用！\r\n");
+                        }
+                        else
+                            if (File.Exists(javaw))
+                            {
+                                findJavaPath = javaw;
+                                //textBox1.AppendText("系统中存在32位Java！\r\n");
+                            }
+                            else
+                            {
+                                findJavaPath = string.Empty;
+                                //textBox1.AppendText("没有检测到Java！请手动选择。\r\n");
+                            }
+                    }
+                    else
+                    {
+                        //textBox1.AppendText("Java路径：" + javaw + "\r\n");
+                        if (File.Exists(javaw))
+                        {
+                            findJavaPath = javaw;
+                            //textBox1.AppendText("系统中存在Java！\r\n");
+                        }
+                        else
+                        {
+                            findJavaPath = string.Empty;
+                            //textBox1.AppendText("没有检测到Java！请手动选择。\r\n");
+                        }
+                    }
+                }
+            }
+            pregkey.Close();
+            return findJavaPath;
         }
 
         public void refreshSettings()
