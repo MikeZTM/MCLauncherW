@@ -97,8 +97,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GetUpdate.xaml.cs">
+      <DependentUpon>GetUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Update.cs" />
     <Page Include="en_us.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GetUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

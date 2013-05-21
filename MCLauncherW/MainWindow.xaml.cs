@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Threading;
 using Microsoft.Win32;
 using System.IO;
+using System.Net;
+using System.Xml;
 
 namespace MCLauncherW
 {
@@ -19,8 +21,17 @@ namespace MCLauncherW
         private String playerName;
         private String playerPswd;
         private String mcPath;
+        private string currentMinecraftVersion;
+        public static string newMinecraftVersion;
         private bool x64mode;
         private long memory;
+        bool isSelfUpdate = false;
+        bool isMinecraftUpdate = false;
+        string currentSelfVersion = "1.0.1.2";
+        string selfDownload = string.Empty;
+        string minecraftDownload = string.Empty;
+        string updateCheckURL = "http://mclauncherw.sinaapp.com/MCLauncherW.xml";
+        
 
         public MainWindow()
         {
@@ -33,7 +44,7 @@ namespace MCLauncherW
                 javaVM = javaAutoDetect();
                 if (javaVM == string.Empty)
                 {
-                    MessageBox.Show(this.Resources["notFundMessageLine1"].ToString() + "\r\n" + this.Resources["notFundMessageLine2"].ToString(), this.Resources["notFundMessageTitle"].ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this.Resources["notFundMessageLine1"].ToString() + "\r\n" + this.Resources["notFundMessageLine2"].ToString(), this.Resources["errorMessageTitle"].ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                     javaVM = Properties.Settings.Default.javaVM;
                     this.Hide();
                     Preference prefer = new Preference();
@@ -46,6 +57,7 @@ namespace MCLauncherW
                     Properties.Settings.Default.Save();
                 }
             }
+            selfUpdate();
         }
 
         private void SetLanguageDictionary()
@@ -195,10 +207,136 @@ namespace MCLauncherW
             javaVM = Properties.Settings.Default.javaVM;
             playerName = Properties.Settings.Default.playerName;
             playerPswd = Properties.Settings.Default.playerPswd;
+            currentMinecraftVersion = Properties.Settings.Default.minecraftVersion;
             x64mode = Properties.Settings.Default.x64mode;
             memory = Properties.Settings.Default.memory;
             mcPath = Properties.Settings.Default.mcPath;
 
+        }
+
+        public void checkUpdate()
+        {
+            string newSelfVersion = string.Empty;
+            try
+            {
+                WebClient wc = new WebClient();
+                Stream stream = wc.OpenRead(updateCheckURL);
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(stream);
+                XmlNode list = xmlDoc.SelectSingleNode("Update");
+                foreach (XmlNode node in list)
+                {
+                    if (node.Name == "Soft" && node.Attributes["Name"].Value.ToLower() == "MCLauncherW".ToLower())
+                    {
+                        foreach (XmlNode xml in node)
+                        {
+                            if (xml.Name == "Version")
+                                newSelfVersion = xml.InnerText;
+                            else
+                                selfDownload = xml.InnerText;
+                        }
+                    }
+                    if (node.Name == "Soft" && node.Attributes["Name"].Value.ToLower() == "Minecraft".ToLower())
+                    {
+                        foreach (XmlNode xml in node)
+                        {
+                            if (xml.Name == "Version")
+                                newMinecraftVersion = xml.InnerText;
+                            else
+                                minecraftDownload = xml.InnerText;
+                        }
+                    }
+                }
+
+                Version ver = new Version(newSelfVersion);
+                Version verson = new Version(currentSelfVersion);
+                int tm = verson.CompareTo(ver);
+
+                if (tm >= 0)
+                    isSelfUpdate = false;
+                else
+                    isSelfUpdate = true;
+
+                ver = new Version(newMinecraftVersion);
+                verson = new Version(currentMinecraftVersion);
+                tm = verson.CompareTo(ver);
+
+                if (tm >= 0)
+                    isMinecraftUpdate = false;
+                else
+                    isMinecraftUpdate = true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("networkerror");
+            }
+        }
+
+        private void selfUpdate()
+        {
+            try
+            {
+                checkUpdate();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "networkerror")
+                {
+                    MessageBox.Show(this.Resources["networkError"].ToString(), this.Resources["errorMessageTitle"].ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            if (isSelfUpdate)
+            {
+                if (MessageBox.Show(this.Resources["haveNewSelfUpdates"].ToString(), this.Resources["haveNewUpdatesTitle"].ToString(), MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        this.Hide();
+                        GetUpdate updateForm = new GetUpdate();
+                        updateForm.Show();
+                        updateForm.setParent(this);
+                        updateForm.setDownload(selfDownload);
+                        updateForm.selfUpdateStart();
+                        updateForm.Show();
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message == "networkerror")
+                        {
+                            MessageBox.Show(this.Resources["networkError"].ToString(), this.Resources["errorMessageTitle"].ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                else
+                    minecraftUpdate();
+            }
+        }
+
+        public void minecraftUpdate()
+        {
+            if (isMinecraftUpdate)
+            {
+                if (MessageBox.Show(this.Resources["haveNewMinecraftUpdates"].ToString(), this.Resources["haveNewUpdatesTitle"].ToString(), MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        this.Hide();
+                        GetUpdate updateForm = new GetUpdate();
+                        updateForm.Show();
+                        updateForm.setParent(this);
+                        updateForm.setDownload(minecraftDownload);
+                        updateForm.minecraftUpdateStart();
+                        updateForm.Show();
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message == "networkerror")
+                        {
+                            MessageBox.Show(this.Resources["networkError"].ToString(), this.Resources["errorMessageTitle"].ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+            }
         }
     }
 }

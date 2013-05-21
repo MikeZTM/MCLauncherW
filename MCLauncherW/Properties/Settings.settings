@@ -26,5 +26,8 @@
     <Setting Name="passwordEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="minecraftVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">9.0.0.6</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

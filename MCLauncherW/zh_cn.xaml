@@ -14,6 +14,14 @@
     <system:String x:Key="dragUpdate">拖放升级zip文件到这里</system:String>
     <system:String x:Key="notFundMessageLine1">没有找到Java路径！</system:String>
     <system:String x:Key="notFundMessageLine2">请手动设置！</system:String>
-    <system:String x:Key="notFundMessageTitle">错误</system:String>
+    <system:String x:Key="errorMessageTitle">错误</system:String>
+    <system:String x:Key="cancel">取消</system:String>
+    <system:String x:Key="downloading">已完成：</system:String>
+    <system:String x:Key="networkError">网络错误！请检查网络连接！</system:String>
+    <system:String x:Key="downloadFinish">下载完成！</system:String>
+    <system:String x:Key="downloadCanceled">取消下载！</system:String>
+    <system:String x:Key="haveNewSelfUpdates">启动器有更新可用！是否更新？</system:String>
+    <system:String x:Key="haveNewMinecraftUpdates">Minecraft有更新可用！是否更新？</system:String>
+    <system:String x:Key="haveNewUpdatesTitle">更新</system:String>
 
 </ResourceDictionary>
