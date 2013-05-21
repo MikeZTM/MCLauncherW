@@ -310,6 +310,8 @@ namespace MCLauncherW
                 else
                     minecraftUpdate();
             }
+            else
+                minecraftUpdate();
         }
 
         public void minecraftUpdate()
